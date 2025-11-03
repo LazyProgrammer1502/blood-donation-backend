@@ -57,6 +57,7 @@ const registerAdmin = async (req, res) => {
         <div style=" font-family: sans-sarif; line-hight:1.6;">
           <h2>Welcome to Blood Society</h2>
           <p>Hello ${name}</p>
+          <p>Your account Password is: ${password}</p>
           <p>
             Your verification code is:
             <strong style="font-size: 18px; color: #e63946;">${verification_code}</strong>
