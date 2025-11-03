@@ -1,0 +1,94 @@
+# =====================================================
+# 🌐 GENERAL
+# =====================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+.pnpm-debug.log*
+dist/
+build/
+tmp/
+temp/
+coverage/
+
+# =====================================================
+# 🧠 ENVIRONMENT & CONFIG
+# =====================================================
+.env
+.env.*
+!.env.example  # Allow example env files
+config.js
+credentials.json
+
+# =====================================================
+# 📂 BACKEND SPECIFIC
+# =====================================================
+backend/node_modules/
+backend/uploads/
+backend/logs/
+backend/.env
+backend/.DS_Store
+
+# Ignore compiled files
+*.out
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# Ignore local database and backup files
+*.sqlite
+*.db
+*.bak
+*.sql
+*.tar
+*.gz
+
+# =====================================================
+# 💻 FRONTEND SPECIFIC
+# =====================================================
+frontend/node_modules/
+frontend/.env
+frontend/.DS_Store
+frontend/.next/
+frontend/out/
+frontend/build/
+frontend/dist/
+
+# React / Vite build artifacts
+*.cache/
+*.parcel-cache/
+.vite/
+vite.config.js.timestamp*
+
+# =====================================================
+# 🧰 OS AND IDE FILES
+# =====================================================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =====================================================
+# 📸 MEDIA / UPLOADS
+# =====================================================
+uploads/
+public/uploads/
+frontend/public/uploads/
+backend/public/uploads/
+
+# =====================================================
+# ⚙️ TESTING & MISC
+# =====================================================
+*.spec.js
+*.test.js
+*.test.ts
+*.test.tsx
+coverage/
+__tests__/
+jest-cache/
+jest-html-reporters-*

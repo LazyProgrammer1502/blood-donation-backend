@@ -1,0 +1,21 @@
+backend/
+├── server.js
+├── config/
+│   └── db.js
+├── models/
+│   ├── Admin.js
+│   └── Donor.js
+├── routes/
+│   ├── adminRoutes.js
+│   └── donorRoutes.js
+├── controllers/
+│   ├── adminController.js
+│   └── donorController.js
+└── middleware/
+    └── authMiddleware.js
+
+    mehranarohi7@gmail.com
+
+    aLjFdXaJmOrmpmAo
+
+    # MONGO_URI = mongodb+srv://faizanlala5699:aLjFdXaJmOrmpmAo@cluster0.dmeu4ks.mongodb.net/?appName=Cluster0
