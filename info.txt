@@ -18,4 +18,3 @@ backend/
 
     aLjFdXaJmOrmpmAo
 
-    # MONGO_URI = mongodb+srv://faizanlala5699:aLjFdXaJmOrmpmAo@cluster0.dmeu4ks.mongodb.net/?appName=Cluster0
