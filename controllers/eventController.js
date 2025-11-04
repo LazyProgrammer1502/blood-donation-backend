@@ -10,10 +10,10 @@ const createEvent = async (req, res) => {
     }
 
     const headerImage = req.files["header_image"]
-      ? `/uploads/events/${req.files["header_image"][0].filename}`
+      ? req.files["header_image"][0].path
       : null;
     const imagePaths = req.files["images"]
-      ? req.files["images"].map((file) => `/uploads/events/${file.filename}`)
+      ? req.files["images"].map((file) => file.path)
       : [];
     const event = await Event.create({
       title,

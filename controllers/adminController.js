@@ -47,7 +47,6 @@ const registerAdmin = async (req, res) => {
         pass: process.env.EMAIL_PASS,
       },
     });
-    console.log(process.env.EMAIL_USER, process.env.EMAIL_PASS);
 
     const mailOptions = {
       from: `Blood Society <${process.env.EMAIL_USER}>`,
@@ -64,21 +63,23 @@ const registerAdmin = async (req, res) => {
           </p>
           <p>
             Click the button below to verify your account:
-            <a href="http://localhost:5173/email/verify" style="background-color:#e63946; color:#fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+            <a href="https://blood-donation-frontend-seven.vercel.app/email/verify" style="background-color:#e63946; color:#fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: bold;">
               Verify Account
             </a>
           </p>
           <p>If the button doesn't work, open this link in your browser:</p>
           <p>
-            <a href="http://localhost:5173/email/verify">
-              http://localhost:5173/email/verify
+            <a href="https://blood-donation-frontend-seven.vercel.app/email/verify">
+              https://blood-donation-frontend-seven.vercel.app/email/verify
             </a>
           </p>
         </div>
       `,
     };
 
+    console.log("Attempting to send email to:", email);
     await transporter.sendMail(mailOptions);
+    console.log("Email sent successfully to:", email);
     res.status(201).json({
       message: "Admin created successfully. Verification code sent to email.",
     });

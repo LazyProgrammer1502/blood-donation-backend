@@ -1,24 +1,34 @@
 import multer from "multer";
-import fs from "fs";
-import path from "path";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+import { v2 as cloudinary } from "cloudinary";
 
-const uploadPath = path.join("uploads", "certificates");
-if (!fs.existsSync(uploadPath)) fs.mkdirSync(uploadPath, { recursive: true });
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET,
+});
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadPath);
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: async (req, file) => ({
+    folder: "blood-donation-certificates", // your Cloudinary folder name
+    format: file.mimetype.split("/")[1],
+    public_id: `${Date.now()}-${file.originalname.split(".")[0]}`,
+  }),
 });
 
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|webp/;
-  const ext = path.extname(file.originalname).toLowerCase();
-  if (allowedTypes.test(ext)) cb(null, true);
-  else cb(new Error("Only images are allowed"), false);
+  const allowedTypes = /jpeg|jpg|png|gif/;
+  const extName = allowedTypes.test(file.originalname.toLowerCase());
+  const mimeType = allowedTypes.test(file.mimetype);
+  if (extName && mimeType) {
+    return cb(null, true);
+  }
+  cb(new Error("Only image files are allowed!"));
 };
 
-export const uploadCertificate = multer({ storage, fileFilter });
+export const uploadCertificate = multer({
+  storage,
+  fileFilter,
+  limits: { fileSize: 10 * 1024 * 1024 }, // max 10MB
+});

@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import connectDb from "./config/db.js";
 import dotenv from "dotenv";
+dotenv.config();
 import donorRoutes from "./routes/donorRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import patientRoutes from "./routes/patientRoutes.js";
@@ -9,14 +10,8 @@ import eventRoutes from "./routes/eventRoutes.js";
 import certificateRoutes from "./routes/certificateRoutes.js";
 import * as cron from "node-cron";
 import { updateDonorStatus } from "./utils/updateDonorStatus.js";
-import path from "path";
-import { fileURLToPath } from "url";
 
 const app = express();
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-dotenv.config();
 connectDb();
 
 const PORT = process.env.PORT || 3000;
@@ -30,7 +25,6 @@ app.get("/", (req, res) => {
 app.use("/api/donors", donorRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/patient", patientRoutes);
-app.use("/api/uploads", express.static(path.join("uploads")));
 app.use("/api/events", eventRoutes);
 app.use("/api/certificates", certificateRoutes);
 

@@ -9,7 +9,7 @@ import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/add", protect, uploadCertificate.single("image"), addCertificate);
+router.post("/add", uploadCertificate.single("image"), addCertificate);
 router.get("/", getAllCertificates);
 router.delete("/:id", protect, deleteCertificate);
 

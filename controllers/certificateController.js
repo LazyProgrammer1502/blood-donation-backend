@@ -9,7 +9,7 @@ const addCertificate = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "Certificate image required" });
     }
-    const imagePath = `uploads/certificates/${req.file.filename}`;
+    const imagePath = req.file.path;
 
     const newCertificate = new Certificate({
       name,
