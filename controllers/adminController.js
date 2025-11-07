@@ -78,6 +78,9 @@ const registerAdmin = async (req, res) => {
         </div>
       `,
     };
+    console.log("🔍 Checking transporter connection...");
+    await transporter.verify();
+    console.log("✅ Transporter ready to send emails!");
 
     console.log("Attempting to send email to:", email);
     await transporter.sendMail(mailOptions);
