@@ -75,7 +75,7 @@ const registerAdmin = async (req, res) => {
     });
     console.log("📬 Resend response:", data);
     res.status(201).json({
-      message: "Admin created successfully. Verification code sent to email.",
+      message: "Admin created successfully. ",
     });
   } catch (error) {
     console.error(" Error registering admin:", error.message);
@@ -117,11 +117,11 @@ const loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
     const admin = await Admin.findOne({ email });
-    if (!admin.verified) {
-      return res
-        .status(403)
-        .json({ message: "Account not verified. Check your email." });
-    }
+    // if (!admin.verified) {
+    //   return res
+    //     .status(403)
+    //     .json({ message: "Account not verified. Check your email." });
+    // }
 
     if (admin && (await admin.matchPassword(password))) {
       res.json({
@@ -261,9 +261,7 @@ const updateAdminPassword = async (req, res) => {
     });
 
     console.log("📬 Resend response:", data);
-    res
-      .status(200)
-      .json({ message: "Admin password updated and email sent successfully" });
+    res.status(200).json({ message: "Admin password updated" });
   } catch (error) {
     console.error("Error updating admin password:", error);
     res.status(500).json({ message: "Failed to update password" });
