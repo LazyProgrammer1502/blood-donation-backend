@@ -246,7 +246,7 @@ const updateAdminPassword = async (req, res) => {
       password: hashed,
     });
 
-    await resend.emails.send({
+    const data = await resend.emails.send({
       from: "MLT LIFE SAVER KUST <onboarding@resend.dev>",
       to: admin.email,
       subject: "Your Blood Society Admin Password Was Changed",
@@ -259,7 +259,8 @@ const updateAdminPassword = async (req, res) => {
        </div>
       `,
     });
-    await transporter.sendMail(mailOptions);
+
+    console.log("📬 Resend response:", data);
     res
       .status(200)
       .json({ message: "Admin password updated and email sent successfully" });
