@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
-import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+dotenv.config();
+import { Resend } from "resend";
 import crypto from "crypto";
 import Admin from "../models/admin.js";
 import bcrypt from "bcryptjs";
@@ -7,6 +9,8 @@ import bcrypt from "bcryptjs";
 const generateToken = (id, role) => {
   return jwt.sign({ id, role }, process.env.JWT_SECRET);
 };
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Register Admin
 const registerAdmin = async (req, res) => {
@@ -40,17 +44,8 @@ const registerAdmin = async (req, res) => {
       verified: false,
       verification_code,
     });
-    const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      secure: true, // use SSL
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
 
-    const mailOptions = {
+    await resend.emails.send({
       from: `Blood Society <${process.env.EMAIL_USER}>`,
       to: email,
       subject: "Admin Account Verification -- Blood Society",
@@ -77,14 +72,8 @@ const registerAdmin = async (req, res) => {
           </p>
         </div>
       `,
-    };
-    console.log("🔍 Checking transporter connection...");
-    await transporter.verify();
-    console.log("✅ Transporter ready to send emails!");
+    });
 
-    console.log("Attempting to send email to:", email);
-    await transporter.sendMail(mailOptions);
-    console.log("Email sent successfully to:", email);
     res.status(201).json({
       message: "Admin created successfully. Verification code sent to email.",
     });
@@ -257,14 +246,7 @@ const updateAdminPassword = async (req, res) => {
       password: hashed,
     });
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-    const mailOptions = {
+    await resend.emails.send({
       from: `Blood Society <${process.env.EMAIL_USER}`,
       to: admin.email,
       subject: "Your Blood Society Admin Password Was Changed",
@@ -276,7 +258,7 @@ const updateAdminPassword = async (req, res) => {
        <p><strong>New Password:</strong>${newPassword}</p>
        </div>
       `,
-    };
+    });
     await transporter.sendMail(mailOptions);
     res
       .status(200)
