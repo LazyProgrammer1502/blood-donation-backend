@@ -46,7 +46,7 @@ const registerAdmin = async (req, res) => {
     });
 
     await resend.emails.send({
-      from: `Blood Society <${process.env.EMAIL_USER}>`,
+      from: "MLT LIFE SAVER KUST <onboarding@resend.dev>",
       to: email,
       subject: "Admin Account Verification -- Blood Society",
       html: `
@@ -247,7 +247,7 @@ const updateAdminPassword = async (req, res) => {
     });
 
     await resend.emails.send({
-      from: `Blood Society <${process.env.EMAIL_USER}`,
+      from: "MLT LIFE SAVER KUST <onboarding@resend.dev>",
       to: admin.email,
       subject: "Your Blood Society Admin Password Was Changed",
       html: `
