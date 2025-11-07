@@ -45,7 +45,7 @@ const registerAdmin = async (req, res) => {
       verification_code,
     });
 
-    await resend.emails.send({
+    const data = await resend.emails.send({
       from: "MLT LIFE SAVER KUST <onboarding@resend.dev>",
       to: email,
       subject: "Admin Account Verification -- Blood Society",
@@ -73,7 +73,7 @@ const registerAdmin = async (req, res) => {
         </div>
       `,
     });
-
+    console.log("📬 Resend response:", data);
     res.status(201).json({
       message: "Admin created successfully. Verification code sent to email.",
     });
